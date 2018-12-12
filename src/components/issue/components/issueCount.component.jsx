@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import config from '../../../config/config';
 import { Grid, Card, CardContent, Typography } from '@material-ui/core';
-import CodeIcon from '@material-ui/icons/Code';
+import BugIcon from '@material-ui/icons/BugReport';
 
 const MainCard = styled(Card)`
   overflow: initial !important;
@@ -32,23 +32,23 @@ const MainCardIcon = styled.div`
   color: #fff;
 `;
 
-class CommitCount extends Component {
+class IssueCount extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      commitList: [],
+      issueCount: [],
     };
   };
 
   componentDidMount = () => {
-    axios.get(config.path + '/repository/commits/master', { 
+    axios.get(config.path + '/issues', { 
       headers: {
         'Private-Token': config.privateToken
       }
     })
     .then((res) => {
-      this.setState({ commitList: res.data.stats.total });
+      this.setState({ issueCount: res.data.length });
     })
     .catch((error) => {
       console.log(error);
@@ -56,20 +56,20 @@ class CommitCount extends Component {
   }
 
   render() {
-    const { commitList } = this.state;
+    const { issueCount } = this.state;
 
     return (
       <Grid item xs={4}>
         <MainCard>
           <MainCardIcon>
-            <CodeIcon />
+            <BugIcon />
           </MainCardIcon>
           <CardContent>
             <Typography color="textSecondary" align="right" >
-              Nombre total de commits
+              Nombre total d'issues
             </Typography>
             <Typography variant="h3" align="right" >
-              {commitList} commits
+              {issueCount} issues
             </Typography>
           </CardContent>
           <CardFooter>
@@ -83,6 +83,6 @@ class CommitCount extends Component {
   }
 }
 
-export default CommitCount;
+export default IssueCount;
 
 

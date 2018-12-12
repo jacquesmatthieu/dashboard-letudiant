@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import config from '../../../config/config';
 import { Grid, Card, CardContent, Typography } from '@material-ui/core';
-import CodeIcon from '@material-ui/icons/Code';
+
+import DoughnutChart from './ doughnutChart.component';
 
 const MainCard = styled(Card)`
   overflow: initial !important;
@@ -18,37 +19,40 @@ const CardFooter = styled.div`
   }
 `;
 
-const MainCardIcon = styled.div`
+const MainCardChart = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
+  width: 90%;
+  height: 75%;
   border-radius: 10px;
   position: absolute;
-  background: #18272c;
+  background: #fff;
   top: -30px;
   left: 30px;
   color: #fff;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 `;
 
-class CommitCount extends Component {
+const MainCardContent = styled(CardContent)`
+  padding-top: 65% !important;
+`;
+
+class MergeRequestChart extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      commitList: [],
+      mergeRequest: [],
     };
   };
 
   componentDidMount = () => {
-    axios.get(config.path + '/repository/commits/master', { 
+    axios.get(config.path + '/merge_requests', { 
       headers: {
         'Private-Token': config.privateToken
       }
     })
     .then((res) => {
-      this.setState({ commitList: res.data.stats.total });
+      this.setState({ mergeRequest: 10 });
     })
     .catch((error) => {
       console.log(error);
@@ -56,22 +60,22 @@ class CommitCount extends Component {
   }
 
   render() {
-    const { commitList } = this.state;
-
+    const { mergeRequest } = this.state;
+    console.log(mergeRequest);
     return (
       <Grid item xs={4}>
         <MainCard>
-          <MainCardIcon>
-            <CodeIcon />
-          </MainCardIcon>
-          <CardContent>
+          <MainCardChart>
+            <DoughnutChart />
+          </MainCardChart>
+          <MainCardContent>
             <Typography color="textSecondary" align="right" >
-              Nombre total de commits
+              Merge request
             </Typography>
             <Typography variant="h3" align="right" >
-              {commitList} commits
+              {mergeRequest} issues
             </Typography>
-          </CardContent>
+          </MainCardContent>
           <CardFooter>
           <Typography paragraph align="center">
             Tracked from Gitlab
@@ -83,6 +87,6 @@ class CommitCount extends Component {
   }
 }
 
-export default CommitCount;
+export default MergeRequestChart;
 
 
