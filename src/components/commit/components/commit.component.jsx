@@ -1,11 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import CommitCount from './commitCount.component';
 
 const Commit = () => {
   return (
-    <Fragment>
-      <CommitCount />
-    </Fragment>
+    <CommitCount />
   );
 };
 
