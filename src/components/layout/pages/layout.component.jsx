@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 const Wrapper = styled.div`
   height: 100vh;
+  background: #eee;
 `;
 
 class Layout extends Component {

@@ -13,13 +13,13 @@ class CommitCount extends Component {
   };
 
   componentDidMount = () => {
-    axios.get(config.path + '/repository/commits?all', { 
+    axios.get(config.path + '/repository/commits/master', { 
       headers: {
         'Private-Token': config.privateToken
       }
     })
     .then((res) => {
-      this.setState({ commitList: res.data.length });
+      this.setState({ commitList: res.data.stats.total });
     })
     .catch((error) => {
       console.log(error);
