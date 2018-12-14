@@ -1,10 +1,16 @@
 import React from 'react';
-import Dashboard from './components/dashboard/pages/dashboard.pages';
+import Layout from '../modules/layout/pages/layout.component';
+import Home from './modules/dashboard/pages/dashboard.pages';
 
 export default [
   {
-    name: 'dashboard',
-    path: '/home',
-    component: Dashboard
+    component: Layout,
+    routes: [
+      {
+        path: "/",
+        exact: true,
+        component: Home
+      },
+    ]
   }
 ]
